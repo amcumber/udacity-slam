@@ -41,9 +41,7 @@ def display_world(world_size, position, landmarks=None):
     # Draw landmarks if they exists
     if landmarks is not None:
         # loop through all path indices and draw a dot (unless it's at the car's location)
-        for landmark in landmarks:
-            # [ACM] changed landmark definition - need to fix this interaction
-            pos = landmark.x, landmark.y
+        for pos in landmarks:
             if pos != position:
                 ax.text(
                     pos[0],
