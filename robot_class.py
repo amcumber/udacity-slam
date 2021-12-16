@@ -63,8 +63,9 @@ def square_dist_strategy(
     landmark: Landmark,
 ) -> float:
     """
-    Measure the euclidean distance from a landmark and the robot without
-    noise.
+    Measure the max manhatten distance from a landmark and the robot without
+    noise. (i.e. this measures the maximum x or y value - this does not sum x
+    and y as a typical manhatten distance)
 
     Parameters
     ----------
