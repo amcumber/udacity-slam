@@ -49,6 +49,7 @@ def slam(data, N, num_landmarks, world_size, motion_noise, measurement_noise):
         land_i, dx, dy = landmark
         land_i = N + land_i
         confidence = 1.0 / measurement_noise
+        dx_conf, dy_conf = dx * confidence, dy * confidence
 
         # Adjust omega
         omega[i, land_i, :] += -confidence
@@ -57,8 +58,8 @@ def slam(data, N, num_landmarks, world_size, motion_noise, measurement_noise):
         omega[land_i, land_i, :] += confidence
 
         # Adjust Xi
-        xi[i, :] += (-dx, -dy)
-        xi[land_i, :] += (dx, dy)
+        xi[i, :] += (-dx_conf, -dy_conf)
+        xi[land_i, :] += (dx_conf, dy_conf)
         return omega, xi
 
     def process_measurements(
@@ -109,6 +110,7 @@ def slam(data, N, num_landmarks, world_size, motion_noise, measurement_noise):
         dx, dy = move
         next_i = i + 1
         confidence = 1.0 / motion_noise
+        dx_conf, dy_conf = dx * confidence, dy * confidence
 
         # Adjust omega
         omega[i, next_i, :] += -confidence
@@ -117,8 +119,8 @@ def slam(data, N, num_landmarks, world_size, motion_noise, measurement_noise):
         omega[next_i, next_i, :] += confidence
 
         # Adjust Xi
-        xi[i, :] += (-dx, -dy)
-        xi[next_i, :] += (dx, dy)
+        xi[i, :] += (-dx_conf, -dy_conf)
+        xi[next_i, :] += (dx_conf, dy_conf)
         return omega, xi
 
     
